@@ -46,25 +46,75 @@
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
+    const firstAndLastNames = inventors.map((inventor) => { return inventor.first + " " + inventor.last });
+
+    console.table(firstAndLastNames);
+
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+
+    const oldestToYoungest = inventors.sort((firstInventor, secondInventor) => {
+      return firstInventor.year < secondInventor.year;
+    })
+
+    console.table(oldestToYoungest);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
+
+    const yearsAllTogether = inventors.reduce(addYear, 0);
+
+    function addYear(sum, inventor) {
+      return sum + (inventor.passed - inventor.year);
+    }
+
+    console.log(`The years lived by all inventors summed up is ${yearsAllTogether}`);
+
     // 5. Sort the inventors by years lived
+
+    const byYearsLived = inventors.sort(compareYearsLived);
+
+    function compareYearsLived(firstInventor, secondInventor) {
+      return (firstInventor.passed - firstInventor.year) - (secondInventor.passed - secondInventor.year);
+    }
+
+    for (let i = 0; i < byYearsLived.length; i++) {
+      console.log(`${byYearsLived[i].first} ${byYearsLived[i].last}: ${byYearsLived[i].passed - byYearsLived[i].year}`);
+    }
+    // console.table(byYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+      // const category = document.querySelector(".mw-category");
+      // const links = Array.from(category.querySelectorAll("a")); // Returns a NodeList not array. Need to conver this to an array
+
+      // const de = links
+      //             .map(link => link.textContent)
+      //             .filter(streetName => streetName.includes("de"));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+
+    const sortByLast = people.map((person) => person.split(", ")[0]).sort((firstPerson, secondPerson) => firstPerson.localeCompare(secondPerson));
+    console.table(sortByLast);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    const sumOfData = data.reduce((obj, item) => {
+      // obj[item]++; // This would work if there was a preset "item" property we could manipulate
+      if (!obj[item]) { // Checks if item exists, if not we then create a new property and set it to zero
+        obj[item] = 0;
+      }
+
+      obj[item]++;
+      return obj;
+    }, {});
+
+  console.log(sumOfData);
   </script>
 </body>
 </html>
